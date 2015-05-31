@@ -12,8 +12,8 @@ defmodule Cbclientapi.Process do
     execute(:preview, hostdata, id, segment) 
   end
 
-  def search([hostname: hostname, port: port, api: apikey], querystring) do
-    assemble_url(:search, hostname, port, querystring)
+  def search([hostname: hostname, port: port, api: apikey], {querystring, rows}) do
+    assemble_url(:search, hostname, port, querystring, rows)
     |> execute_query(apikey)
     |> get_response
     |> decode_json
@@ -43,8 +43,8 @@ defmodule Cbclientapi.Process do
 
 
 ## URL Formatting functions:
-  defp assemble_url(:search, hostname, port, querystring) do
-    "https://" <> hostname <> ":" <> Integer.to_string(port) <> "/api/v1/process?q=" <> querystring
+  defp assemble_url(:search, hostname, port, querystring, rows) do
+    "https://" <> hostname <> ":" <> Integer.to_string(port) <> "/api/v1/process?q=" <> :hackney_url.urlencode(querystring) <> "&rows=" <> Integer.to_string(rows)
   end
   defp assemble_url(:summary, hostname, port, id, segment) do
     "https://" <> hostname <> ":" <> Integer.to_string(port) <> "/api/v1/process/" <> Integer.to_string(id) <> "/" <> Integer.to_string(segment)
