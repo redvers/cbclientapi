@@ -12,7 +12,7 @@ defmodule Cbclientapi.Process do
     execute(:preview, hostdata, id, segment) 
   end
 
-  def search([hostname: hostname, port: port, api: apikey], {querystring, rows}) do
+  def search(%Cbclientapi{hostname: hostname, port: port, api: apikey}, {querystring, rows}) do
     assemble_url(:search, hostname, port, querystring, rows)
     |> execute_query(apikey)
     |> get_response
@@ -21,7 +21,7 @@ defmodule Cbclientapi.Process do
 
 
 ## Private Functions
-  defp execute(type, [hostname: hostname, port: port, api: apikey], id, segment) do
+  defp execute(type, %Cbclientapi{hostname: hostname, port: port, api: apikey}, id, segment) do
     assemble_url(type, hostname, port, id, segment)
     |> execute_query(apikey)
     |> get_response
