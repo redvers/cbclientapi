@@ -1,15 +1,15 @@
 defmodule Cbclientapi.Process do
 
   def summary(hostdata, id, segment) do
-    execute(:summary, hostdata, id, segment) 
+    execute(:summary, hostdata, id, segment)
   end
 
   def events(hostdata, id, segment) do
-    execute(:event, hostdata, id, segment) 
+    execute(:event, hostdata, id, segment)
   end
 
   def preview(hostdata, id, segment) do
-    execute(:preview, hostdata, id, segment) 
+    execute(:preview, hostdata, id, segment)
   end
 
   def search(%Cbclientapi{hostname: hostname, port: port, api: apikey}, {querystring, rows}) do
